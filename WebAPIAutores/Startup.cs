@@ -31,7 +31,21 @@ namespace WebAPIAutores
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
 
-            services.AddSingleton<IServicio, ServicioB>();
+            services.AddTransient<IServicio, ServicioA>();
+
+            services.AddTransient<ServicioTransient>();
+            services.AddScoped<ServicioScoped>();
+            services.AddSingleton<ServicioSingleton>();
+
+            ///
+            /// Resumen de los servicios
+            /// 
+            /// Transient : Siempre es diferente la instancia aunque sea el mismo contexto http
+            /// 
+            /// Scoped : Misma instancia en mismo contexto HTTP, diferente al cambiar de contexto
+            /// 
+            /// Singleton : Siempre es la misma instancia de la clase
+            ///
 
             services.AddSwaggerGen(c =>
             {
