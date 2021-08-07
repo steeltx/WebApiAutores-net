@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using WebAPIAutores.Servicios;
+using static WebAPIAutores.Servicios.IServicio;
 
 namespace WebAPIAutores
 {
@@ -28,6 +30,8 @@ namespace WebAPIAutores
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+
+            services.AddSingleton<IServicio, ServicioB>();
 
             services.AddSwaggerGen(c =>
             {

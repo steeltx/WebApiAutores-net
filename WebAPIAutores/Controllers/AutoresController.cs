@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebAPIAutores.Entidades;
+using WebAPIAutores.Servicios;
 
 namespace WebAPIAutores.Controllers
 {
@@ -13,15 +14,18 @@ namespace WebAPIAutores.Controllers
     public class AutoresController : ControllerBase
     {
         private readonly ApplicationDbContext context;
+        private readonly IServicio servicio;
 
-        public AutoresController(ApplicationDbContext context)
+        public AutoresController(ApplicationDbContext context, IServicio servicio)
         {
             this.context = context;
+            this.servicio = servicio;
         }
 
         [HttpGet]
         public async Task<List<Autor>> Get()
         {
+            servicio.RealizarTarea();
             return await context.Autores.Include(x => x.Libros).ToListAsync();
         }
 
